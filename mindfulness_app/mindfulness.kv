@@ -1,0 +1,194 @@
+#:kivy 2.2.1
+
+<LoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: '20dp'
+        spacing: '10dp'
+        
+        Label:
+            text: 'Mindfulness App'
+            font_size: '24sp'
+        
+        TextInput:
+            id: username
+            hint_text: 'Username'
+            multiline: False
+            size_hint_y: None
+            height: '40dp'
+        
+        TextInput:
+            id: password
+            hint_text: 'Password'
+            password: True
+            multiline: False
+            size_hint_y: None
+            height: '40dp'
+        
+        Button:
+            text: 'Login'
+            size_hint_y: None
+            height: '50dp'
+            on_press: root.login()
+        
+        Button:
+            text: 'Register'
+            size_hint_y: None
+            height: '50dp'
+            on_press: root.register()
+
+<HomeScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: '20dp'
+        spacing: '10dp'
+        
+        Label:
+            text: 'Welcome to Mindfulness'
+            font_size: '24sp'
+        
+        Button:
+            text: 'Meditation Sessions'
+            size_hint_y: None
+            height: '60dp'
+            on_press: root.goto_meditation()
+        
+        Button:
+            text: 'Mood Tracker'
+            size_hint_y: None
+            height: '60dp'
+            on_press: root.goto_mood()
+        
+        Button:
+            text: 'Chat with Assistant'
+            size_hint_y: None
+            height: '60dp'
+            on_press: root.goto_chatbot()
+        
+        Button:
+            text: 'Logout'
+            size_hint_y: None
+            height: '50dp'
+            on_press: root.logout()
+
+<MeditationScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: '20dp'
+        spacing: '10dp'
+        
+        Label:
+            text: 'Meditation Sessions'
+            font_size: '24sp'
+        
+        ScrollView:
+            BoxLayout:
+                id: session_list
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: '10dp'
+        
+        Label:
+            text: root.current_affirmation
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            size_hint_y: None
+            height: '60dp'
+        
+        Button:
+            text: 'Back to Home'
+            size_hint_y: None
+            height: '50dp'
+            on_press: root.goto_home()
+
+<MoodTrackerScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: '20dp'
+        spacing: '10dp'
+        
+        Label:
+            text: 'How are you feeling today?'
+            font_size: '24sp'
+        
+        Slider:
+            id: mood_slider
+            min: 1
+            max: 5
+            step: 1
+            value: 3
+            size_hint_y: None
+            height: '40dp'
+        
+        Label:
+            text: str(int(mood_slider.value))
+            size_hint_y: None
+            height: '30dp'
+        
+        TextInput:
+            id: mood_note
+            hint_text: 'Add any notes about your mood...'
+            multiline: True
+            size_hint_y: None
+            height: '100dp'
+        
+        Button:
+            text: 'Save Mood'
+            size_hint_y: None
+            height: '50dp'
+            on_press: root.save_mood()
+        
+        Button:
+            text: 'View History'
+            size_hint_y: None
+            height: '50dp'
+            on_press: root.show_history()
+        
+        Button:
+            text: 'Back to Home'
+            size_hint_y: None
+            height: '50dp'
+            on_press: root.goto_home()
+
+<ChatbotScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: '20dp'
+        spacing: '10dp'
+        
+        Label:
+            text: 'Chat with your Mindfulness Assistant'
+            font_size: '24sp'
+        
+        ScrollView:
+            TextInput:
+                id: chat_history
+                readonly: True
+                size_hint: (1, None)
+                height: max(self.minimum_height, root.height - 200)
+                
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '50dp'
+            spacing: '10dp'
+            
+            TextInput:
+                id: message_input
+                hint_text: 'Type your message here...'
+                multiline: False
+                size_hint_x: 0.8
+                on_text_validate: root.send_message()
+            
+            Button:
+                text: 'Send'
+                size_hint_x: 0.2
+                on_press: root.send_message()
+        
+        Button:
+            text: 'Back to Home'
+            size_hint_y: None
+            height: '50dp'
+            on_press: root.goto_home()

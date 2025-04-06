@@ -1,0 +1,4 @@
+kivy
+python-dotenv
+soundloader
+pathlib
